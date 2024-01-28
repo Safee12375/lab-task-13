@@ -1,0 +1,36 @@
+class TreeNode:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+def calculate_height(root):
+    if root is None:
+        return 0
+    else:
+        # Recursively calculate the height of the left and right subtrees
+        left_height = calculate_height(root.left)
+        right_height = calculate_height(root.right)
+
+        # Return the maximum height among the left and right subtrees, plus 1 for the current level
+        return max(left_height, right_height) + 1
+
+# Example usage:
+# Create a sample binary tree
+#        1
+#       / \
+#      2   3
+#     / \
+#    4   5
+
+root = TreeNode(1)
+root.left = TreeNode(2)
+root.right = TreeNode(3)
+root.left.left = TreeNode(4)
+root.left.right = TreeNode(5)
+
+# Calculate the height of the binary tree
+tree_height = calculate_height(root)
+
+# Display the result
+print("Height of the binary tree:", tree_height)
