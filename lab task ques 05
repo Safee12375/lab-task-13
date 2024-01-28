@@ -1,0 +1,42 @@
+class TreeNode:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+def kth_smallest_in_bst(root, k):
+    result = []
+    inorder_traversal(root, result)
+    
+    # Check if k is a valid index
+    if 0 < k <= len(result):
+        return result[k - 1]
+    else:
+        return None
+
+def inorder_traversal(node, result):
+    if node is not None:
+        # In-order traversal: Left, Root, Right
+        inorder_traversal(node.left, result)
+        result.append(node.value)
+        inorder_traversal(node.right, result)
+
+# Example usage:
+# Create a sample binary search tree
+#        3
+#       / \
+#      1   4
+#       \
+#        2
+
+bst_root = TreeNode(3)
+bst_root.left = TreeNode(1)
+bst_root.right = TreeNode(4)
+bst_root.left.right = TreeNode(2)
+
+# Find the 2nd smallest element in the BST
+k_value = 2
+kth_smallest = kth_smallest_in_bst(bst_root, k_value)
+
+# Display the result
+print(f"The {k_value}-th smallest element in the BST is:", kth_smallest)
