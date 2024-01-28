@@ -1,0 +1,50 @@
+class TreeNode:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+def find_lowest_common_ancestor(root, node1, node2):
+    if root is None:
+        return None
+
+    # If either node1 or node2 is the root, the root is the lowest common ancestor
+    if root.value == node1 or root.value == node2:
+        return root.value
+
+    # Recursively search for the nodes in the left and right subtrees
+    left_ancestor = find_lowest_common_ancestor(root.left, node1, node2)
+    right_ancestor = find_lowest_common_ancestor(root.right, node1, node2)
+
+    # If both nodes are found in different subtrees, the current root is the lowest common ancestor
+    if left_ancestor is not None and right_ancestor is not None:
+        return root.value
+
+    # If one node is found, return it as a potential ancestor
+    return left_ancestor if left_ancestor is not None else right_ancestor
+
+# Example usage:
+# Create a sample binary tree
+#        3
+#       / \
+#      5   1
+#     / \ / \
+#    6  2 0  8
+#      / \
+#     7   4
+
+tree_root = TreeNode(3)
+tree_root.left = TreeNode(5)
+tree_root.right = TreeNode(1)
+tree_root.left.left = TreeNode(6)
+tree_root.left.right = TreeNode(2)
+tree_root.right.left = TreeNode(0)
+tree_root.right.right = TreeNode(8)
+tree_root.left.right.left = TreeNode(7)
+tree_root.left.right.right = TreeNode(4)
+
+# Find the lowest common ancestor of nodes 5 and 1
+ancestor = find_lowest_common_ancestor(tree_root, 5, 1)
+
+# Display the result
+print("Lowest Common Ancestor:", ancestor)
