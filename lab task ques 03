@@ -1,0 +1,36 @@
+class TreeNode:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+def is_binary_search_tree(root, min_value=float('-inf'), max_value=float('inf')):
+    if root is None:
+        return True
+
+    # Check if the current node's value is within the valid range
+    if min_value < root.value < max_value:
+        # Recursively check the left and right subtrees with updated ranges
+        return (is_binary_search_tree(root.left, min_value, root.value) and
+                is_binary_search_tree(root.right, root.value, max_value))
+    else:
+        return False
+
+# Example usage:
+# Create a sample binary search tree
+#        2
+#       / \
+#      1   3
+
+bst_root = TreeNode(2)
+bst_root.left = TreeNode(1)
+bst_root.right = TreeNode(3)
+
+# Check if the tree is a binary search tree
+is_bst = is_binary_search_tree(bst_root)
+
+# Display the result
+if is_bst:
+    print("The tree is a Binary Search Tree.")
+else:
+    print("The tree is not a Binary Search Tree.")
